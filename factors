@@ -1,24 +1,48 @@
 #!/usr/bin/python3
 
-# Check that the program was called with the correct arguments
-if len(sys.argv) != 2:
-    print("Usage: factors <file>")
-    sys.exit(1)
+def get_factors(num: int):
+    """
+    Factorizes the given number into two smaller factors, if possible.
+    Prints the factorization in the format "num=factor1*factor2".
+    """
+    fnum = 2
 
-# Open the input file and read its contents
-with open(sys.argv[1], "r") as input_file:
-    lines = input_file.readlines()
+    # Check if the number is less than 2, since we cannot factorize numbers less than 2
+    if num < 2:
+        return
 
-# Iterate over the lines and factorize each number
-for line in lines:
-    n = int(line.strip())
+    # Keep dividing the number by the iterator until it's no longer divisible
+    while num % fnum:
+        fnum += 1
 
-    # Find the smallest factor of n (other than 1)
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            p = i
-            q = n // i
-            print(f"{n}={p}*{q}")
-            break
+    # Once the loop ends, itr should be a factor of num
+    # We can print the factorization in the required format
+    print("{}={}*{}".format(num, num//fnum, fnum))
+
+
+if __name__ == "__main__":
+    from sys import argv as fac
+
+    # Check if the script was called with the filename argument
+    if len(fac) == 2:
+        filename = fac[1]
+        try:
+            # Try to open the file with the given filename
+            with open(filename, mode="r", encoding="utf-8") as file:
+                # Read one line from the file
+                one_line = file.readline()
+                while one_line != "":
+                    # Convert the line to an integer
+                    number = int(one_line.strip())
+                    # Factorize the number and print the result
+                    get_factors(number)
+                    # Read the next line from the file
+                    one_line = file.readline()
+        # Handle the case where the file cannot be found
+        except FileNotFoundError:
+            pass
+        # Handle the case where the filename argument is not provided
+        except IndexError:
+            pass
     else:
-        print(f"{n} is prime")
+        exit()
