@@ -1,35 +1,47 @@
 #!/usr/bin/python3
 
-"""Function to get multiple factors from numbers read from a file
-"""
 def get_factors(num: int):
-    """Start the first factor from 2"""
+    """
+    Factorizes the given number into two smaller factors, if possible.
+    Prints the factorization in the format "num=factor1*factor2".
+    """
     itr = 2
 
-    """if the number is less than 2, return None (no factor)"""
+    # Check if the number is less than 2, since we cannot factorize numbers less than 2
     if num < 2:
         return
-    
-    """while the number can be divided by the factor add 1 to the factor"""
+
+    # Keep dividing the number by the iterator until it's no longer divisible
     while num % itr:
         itr += 1
+
+    # Once the loop ends, itr should be a factor of num
+    # We can print the factorization in the required format
     print("{}={}*{}".format(num, num//itr, itr))
 
 
 if __name__ == "__main__":
     from sys import argv as sa
 
+    # Check if the script was called with the filename argument
     if len(sa) == 2:
         filename = sa[1]
         try:
+            # Try to open the file with the given filename
             with open(filename, mode="r", encoding="utf-8") as file:
-                 one_line = file.readline()
-                 while one_line != "":
-                      number = int(one_line.strip())
-                      get_factors(number)
-                      one_line = file.readline()
+                # Read one line from the file
+                one_line = file.readline()
+                while one_line != "":
+                    # Convert the line to an integer
+                    number = int(one_line.strip())
+                    # Factorize the number and print the result
+                    get_factors(number)
+                    # Read the next line from the file
+                    one_line = file.readline()
+        # Handle the case where the file cannot be found
         except FileNotFoundError:
             pass
+        # Handle the case where the filename argument is not provided
         except IndexError:
             pass
     else:
