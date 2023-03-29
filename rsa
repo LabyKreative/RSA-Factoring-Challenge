@@ -1,0 +1,70 @@
+#!/usr/bin/python3
+
+def find_prime_factors(num: int):
+    '''
+    Finds the two prime factors of the given number using the RSA algorithm.
+    Prints the factors in the format "num=p*q".
+    '''
+    # Initialize the variables
+    p, q = None, None
+    i = 2
+
+    # Loop until both factors are found
+    while p is None or q is None:
+        # Check if the iterator is a factor of the number
+        if num % i == 0:
+            # Check if the factor is prime
+            if is_prime(i):
+                # If p is not set yet, set it to i
+                if p is None:
+                    p = i
+                # If p is already set, set q to i and break the loop
+                else:
+                    q = i
+                    break
+        # Increment the iterator
+        i += 1
+
+    # Print the factorization in the required format
+    print("{}={}*{}".format(num, p, q))
+
+
+def is_prime(num: int) -> bool:
+    '''
+    Checks if the given number is prime.
+    Returns True if the number is prime, False otherwise.
+    '''
+    if num < 2:
+        return False
+    for i in range(2, int(num**0.5)+1):
+        if num % i == 0:
+            return False
+    return True
+
+
+if __name__ == "__main__":
+    from sys import argv as sa
+
+    # Check if the script was called with the filename argument
+    if len(sa) == 2:
+        filename = sa[1]
+        try:
+            # Try to open the file with the given filename
+            with open(filename, mode="r", encoding="utf-8") as file:
+                # Read one line from the file
+                one_line = file.readline()
+                while one_line != "":
+                    # Convert the line to an integer
+                    number = int(one_line.strip())
+                    # Find the prime factors of the number using the RSA algorithm and print the result
+                    find_prime_factors(number)
+                    # Read the next line from the file
+                    one_line = file.readline()
+        # Handle the case where the file cannot be found
+        except FileNotFoundError:
+            pass
+        # Handle the case where the filename argument is not provided
+        except IndexError:
+            pass
+    else:
+        exit()
