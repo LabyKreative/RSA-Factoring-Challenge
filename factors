@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Module that factorizes as many numbers as possible
 into a product of two smaller numbers."""
-
 import sys
 
 
@@ -12,21 +11,16 @@ def factorize(num: int):
     """
     itr = 2
 
-    # Check if the number is less than 2, since we cannot factorize numbers less than 2
     if num < 2:
         return
-    
-    # Keep dividing the number by the iterator until it's no longer divisible
+        
     while num % itr:
         itr += 1
-
-    # Once the loop ends, itr should be a factor of num
-    # We can print the factorization in the required format
+    
     print("{}={}*{}".format(num, num//itr, itr))
 
 
-if __name__ == "__main__":
-    # Check if the script was called with the filename argument
+if __name__ == "__main__":    
     if len(sys.argv) != 2:
         sys.exit()
 
@@ -34,12 +28,9 @@ if __name__ == "__main__":
         with open(sys.argv[1]) as file:
             line = file.readline()
 
-            while line != "":
-                # Convert the line to an integer
-                number = int(line.strip())
-                # Factorize the number and print the result
-                factorize(number)
-                # Read the next line from the file
+            while line != "":                
+                number = int(line.strip())                
+                factorize(number)                
                 line = file.readline()
     except Exception:
         pass
