@@ -1,19 +1,20 @@
 #!/usr/bin/python3
-'''Factorize as many numbers as possible into a product of two smaller numbers.'''
+"""Module that factorize as many numbers as possible
+ into a product of two smaller numbers."""
 from sys import argv
 
 
 def factorize(value):
-    '''"print a simple descomposition of an integer > 1'''
-    x = 2
+    """"print a simple descomposition of an integer > 1"""
+    i = 2
 
     if value < 2:
         return
     print()
     print(value, "<- value-bef")
-    while value % x:
-        x += 1
-    print("{:.0f}={:.0f}*{:.0f}".format(value, value / x, x))
+    while value % i:
+        i += 1
+    print("{:.0f}={:.0f}*{:.0f}".format(value, value / i, i))
     print(value, "<- value-aft")
     print()
 
