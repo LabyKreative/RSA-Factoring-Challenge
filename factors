@@ -1,6 +1,11 @@
 #!/usr/bin/python3
+"""Module that factorizes as many numbers as possible
+into a product of two smaller numbers."""
 
-def get_factors(num: int):
+import sys
+
+
+def factorize(num: int):
     """
     Factorizes the given number into two smaller factors, if possible.
     Prints the factorization in the format "num=factor1*factor2".
@@ -10,7 +15,7 @@ def get_factors(num: int):
     # Check if the number is less than 2, since we cannot factorize numbers less than 2
     if num < 2:
         return
-
+    
     # Keep dividing the number by the iterator until it's no longer divisible
     while num % itr:
         itr += 1
@@ -21,28 +26,20 @@ def get_factors(num: int):
 
 
 if __name__ == "__main__":
-    from sys import argv as sa
-
     # Check if the script was called with the filename argument
-    if len(sa) == 2:
-        filename = sa[1]
-        try:
-            # Try to open the file with the given filename
-            with open(filename, mode="r", encoding="utf-8") as file:
-                # Read one line from the file
-                one_line = file.readline()
-                while one_line != "":
-                    # Convert the line to an integer
-                    number = int(one_line.strip())
-                    # Factorize the number and print the result
-                    get_factors(number)
-                    # Read the next line from the file
-                    one_line = file.readline()
-        # Handle the case where the file cannot be found
-        except FileNotFoundError:
-            pass
-        # Handle the case where the filename argument is not provided
-        except IndexError:
-            pass
-    else:
-        exit()
+    if len(sys.argv) != 2:
+        sys.exit()
+
+    try:
+        with open(sys.argv[1]) as file:
+            line = file.readline()
+
+            while line != "":
+                # Convert the line to an integer
+                number = int(line.strip())
+                # Factorize the number and print the result
+                factorize(number)
+                # Read the next line from the file
+                line = file.readline()
+    except Exception:
+        pass
